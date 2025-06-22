@@ -1,3 +1,34 @@
+A simple weather app capable of using Parameter Manager & Secret Manager as a source of truth for its API Key & other relevant configurations.
+
+# Steps to run this application
+
+`git clone https://github.com/underscoreanuj/parameter-manager-weather-app.git`
+
+In First Shell:
+
+`cd parameter-manager-weather-app/weather-backend`
+
+`gcloud auth application-default login`
+
+`node server.js`
+
+In Second Shell:
+
+
+`cd parameter-manager-weather-app`
+
+`npm start`
+
+
+## How it looks
+
+![home screen](sample-app-main-view.png?raw=true)
+
+![weather view](sample-app-weather-view.png?raw=true)
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
