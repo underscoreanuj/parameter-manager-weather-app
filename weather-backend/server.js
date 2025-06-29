@@ -10,11 +10,11 @@ const {ParameterManagerClient} = require('@google-cloud/parametermanager').v1;
 
 const app = express(); // Initialize Express app
 const PORT = process.env.PORT || 5001; // Define the port for the server
-const startupConfigProject = "annular-text-460910-i0"
-const startupConfigLocation = "global"
-const startupConfigParameter = "my-weather-demo-parameter"
+const startupConfigProject = "annular-text-460910-i0"  // specify your own GCP project ID here
+const startupConfigLocation = "global"  // specify region of the Parameter to use
+const startupConfigParameter = "my-weather-demo-parameter"  // specify name of the Parameter to use
 const startupConfig = `projects/${startupConfigProject}/locations/${startupConfigLocation}/parameters/${startupConfigParameter}/versions/`
-const appVersion = "v1"
+const appVersion = "v1"  // specify the name of the Parameter Verision to use
 // Instantiates a client
 const parametermanagerClient = new ParameterManagerClient();
 let CONFIG = undefined
