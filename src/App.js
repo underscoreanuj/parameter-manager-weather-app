@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 function App() {
@@ -115,7 +115,7 @@ function App() {
             <p className="text-6xl font-extrabold mb-4">{weatherData.temperature}</p>
             <p className="text-2xl mb-2">{weatherData.description}</p>
             <div className="grid grid-cols-2 gap-4 text-lg">
-              <p>Humidity: <span className="font-semibold">{weatherData.humidity}</span></p>
+              {weatherData.showHumidity && (<p>Humidity: <span className="font-semibold">{weatherData.humidity}</span></p>)}
               <p>Wind Speed: <span className="font-semibold">{weatherData.windSpeed}</span></p>
             </div>
           </div>

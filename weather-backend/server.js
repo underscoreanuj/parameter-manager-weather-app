@@ -80,6 +80,7 @@ app.get('/api/weather', async (req, res) => {
         temperature: `${Math.round(data.main.temp)}${temperatureSuffix}`, // Round temperature
         description: data.weather[0].description,
         humidity: `${data.main.humidity}%`,
+        showHumidity: CONFIG.showHumidity,
         windSpeed: `${Math.round(data.wind.speed * 3.6)} km/h`, // Convert m/s to km/h
         icon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`, // OpenWeatherMap icon URL
         offline: false
@@ -90,13 +91,14 @@ app.get('/api/weather', async (req, res) => {
       console.error('OpenWeatherMap API Error:', data);
 
       // return dummy data based on defaultLocation
-      const dummyData = CONFIG.dummyData.find((d) => d.city == CONFIG.defaultLocation)
+      const dummyData = CONFIG.dummyData.find((d) => d.city === CONFIG.defaultLocation)
 
       const weatherData = {
         city: dummyData.city,
         temperature: `${dummyData.temperature}`,
         description: dummyData.description,
         humidity: `${dummyData.humidity}`,
+        showHumidity: CONFIG.showHumidity,
         windSpeed: `${dummyData.windSpeed}`,
         icon: `${dummyData.icon}`, // OpenWeatherMap icon URL
         offline: true
