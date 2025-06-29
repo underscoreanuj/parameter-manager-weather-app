@@ -4,7 +4,72 @@ A simple weather app capable of using Parameter Manager & Secret Manager as a so
 
 `git clone https://github.com/underscoreanuj/parameter-manager-weather-app.git`
 
-In First Shell:
+Signup for a free API key from: https://home.openweathermap.org/
+
+## Inside your GCP project
+
+1. Open Secret Manager & store the weather API key there. Copy the resource identifier for the Secret Version you created. It would look something like: `projects/<your-project-id>/secrets/<secret-name>/versions/<version-id>`
+
+2. Open Parameter Manager & create a YAML type Parameter.
+
+3. Navigate to the Parameter you created & open its `Overview` section. Copy the `IAM Principal Identifier` & grant it the `Secret Manager Secret Accessor` permission on the Secret you created containing the API key.
+
+4. Then add a Parameter Version inside it with the following content:
+
+```
+version: 'v1'
+apiKey: '__REF__(//secretmanager.googleapis.com/projects/<your-project-id>/secrets/<secret-name>/versions/<version-id>)'
+fahrenheit: false
+defaultLocation: 'London'
+showHumidity: false
+# dummy values, useful when the app is not connected to internet after going live & loading this config or when the weather API is down
+dummyData:
+- 
+    city: 'London'
+    temperature: '15°C'
+    description: 'Partly Cloudy'
+    humidity: '70%'
+    windSpeed: '10 km/h'
+    icon: 'http://openweathermap.org/img/wn/02d@2x.png'
+- 
+    city: 'New York'
+    temperature: '22°C'
+    description: 'Sunny'
+    humidity: '55%'
+    windSpeed: '12 km/h'
+    icon: 'http://openweathermap.org/img/wn/03d@2x.png'
+-
+    city: 'Tokyo'
+    temperature: '28°C'
+    description: 'Clear Sky'
+    humidity: '60%'
+    windSpeed: '8 km/h'
+    icon: 'http://openweathermap.org/img/wn/04n@2x.png'
+-
+    city: 'Paris'
+    temperature: '18°C'
+    description: 'Light Rain'
+    humidity: '85%'
+    windSpeed: '15 km/h'
+    icon: 'http://openweathermap.org/img/wn/04d@2x.png'
+-
+    city: 'Sydney'
+    temperature: '20°C'
+    description: 'Mostly Sunny'
+    humidity: '65%'
+    windSpeed: '9 km/h'
+    icon: 'http://openweathermap.org/img/wn/04n@2x.png'
+```
+
+5. Once created attemp to `Render` the Parameter Version & verify that your Rendered output has your weather API key substituted properly.
+6. Edit `parameter-manager-weather-app/weather-backend/server.js` file:
+  - `startupConfigProject` with the project ID of the parameter.
+  - `startupConfigLocation` with the location of the parameter.
+  - `startupConfigParameter` with the name of the parameter.
+  - `appVersion` with the name of the parameter version containing the YAML data.
+
+
+## In First Shell:
 
 `cd parameter-manager-weather-app/weather-backend`
 
@@ -12,7 +77,7 @@ In First Shell:
 
 `node server.js`
 
-In Second Shell:
+## In Second Shell:
 
 
 `cd parameter-manager-weather-app`
